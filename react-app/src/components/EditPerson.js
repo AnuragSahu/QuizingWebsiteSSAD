@@ -21,7 +21,7 @@ class EditPerson extends Component {
 
   checkAnswer()
   {
-    this.state.score = 1;
+    this.setState({score:1})
   }
 
   render() {
@@ -35,7 +35,7 @@ class EditPerson extends Component {
                return (
                  <center>
                   <tr key = {key}>
-                  {(item.genre=='Politics') &&
+                  {(item.genre==='Politics') &&
                   <div>
                       <h2>{item.question}</h2>
                       <tr><h4><input type="radio" name={item.questionid} value = {1} /> {item.option1}</h4> </tr>

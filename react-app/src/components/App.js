@@ -12,6 +12,8 @@ import SelectQuizPolitics from './SelectQuizPolitics';
 import ShowQuizPolitics1 from './ShowQuizPolitics1';
 import ShowQuizPolitics2 from './ShowQuizPolitics2';
 import ShowQuizStatics1 from './ShowQuizStatics1';
+import Login from './Login';
+import Register from './Register';
 
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
@@ -19,19 +21,20 @@ class App extends Component {
   render() {
     return (
       <div>
+        <center>
         <Router>
           <div>
             <nav className="navbar navbar-default">
               <div className="container-fluid">
                 <div className="navbar-header">
-                  <Link className="navbar-brand" to={'/'}>React App</Link>
+                  <Link className="navbar-brand" to={'/'}>Anurag Sahu</Link>
                 </div>
                 <ul className="nav navbar-nav">
                   <li><Link to={'/'}>Home</Link></li>
                   <li><Link to={'/AdminPanel'}>AdminPanel</Link></li>
-                  <li><Link to={'/NewPerson'}>SignUp</Link></li>
+                  <li><Link to={'/Register'}>SignUp</Link></li>
                   <li><Link to={'/QuizGenreSelect'}>NormalUser</Link></li>
-                  <li><Link to={'/'}>Login</Link></li>
+                  <li><Link to={'/Login'}>Login</Link></li>
                 </ul>
               </div>
             </nav>
@@ -50,9 +53,12 @@ class App extends Component {
                  <Route exact path='/ShowQuizPolitics2' component={ShowQuizPolitics2}/>
                  <Route exact path='/ShowQuizStatics1' component={ShowQuizStatics1}/>
                  <Route exact path='/MyComponent' component={MyComponent}/>
+                 <Route exact path='/Login' component={Login}/>
+                 <Route exact path='/Register' component={Register}/>
             </Switch>
           </div>
         </Router>
+        </center>
       </div>
     );
   }

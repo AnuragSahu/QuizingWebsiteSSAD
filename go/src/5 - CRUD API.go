@@ -13,9 +13,21 @@ var err error
 
 type Person struct {
    ID uint `json:"id"`
-   FirstName string `json:"firstname"`
-   LastName string `json:"lastname"`
-   City string `json:"city"`
+   Name string `json:"name"`
+   Password string `json:"password"`
+}
+
+
+type QuizGenre struct{
+  ID uint `json:"id"`
+  Name string `json:"name_of_genre"`
+}
+
+type QuizsInGenre struct
+{
+  ID uint `json:"id"`
+  GenreName string `json:"genrename"`
+  QuizNo string `json:"quizno"`
 }
 
 type Quiz struct {
@@ -31,7 +43,7 @@ type Quiz struct {
   
   type Attempt struct {
     ID uint `json:"attemptid"`
-    Genre unit `json:"genre"`
+    Genre string `json:"genre"`
     Score string `json:"score"`
     PersonId string `json:"personid"`
   }
@@ -43,13 +55,15 @@ func main() {
    }
    defer db.Close()
 
-   db.AutoMigrate(&Person{},&Attempt{},&Quiz{})
+   db.AutoMigrate(&Person{},&Attempt{},&Quiz{},&QuizGenre{},&QuizsInGenre{})
    r := gin.Default()
    r.GET("/allquestions/",GetQuestions)
+   r.GET("/genres/",GetGenres)
    r.GET("/question/:id", GetQuesNo)
    r.GET("/people/", GetPeople)                             // Creating routes for each functionality
    r.GET("/people/:id", GetPerson)
-   r.POST("/people", CreatePerson)
+   r.POST("/userpresent/",UserPresent)
+   r.POST("/putpeople/", CreatePerson)
    r.PUT("/people/:id", UpdatePerson)
    r.DELETE("/people/:id", DeletePerson)
    r.Use((cors.Default()))
@@ -82,11 +96,26 @@ func UpdatePerson(c *gin.Context) {
 func CreatePerson(c *gin.Context) {
    var person Person
    c.BindJSON(&person)
+   fmt.Println(person.Name)
    db.Create(&person)
    c.Header("access-control-allow-origin", "*") // Why am I doing this? Find out. Try running with this line commented
    c.JSON(200, person)
 }
 
+func UserPresent(c *gin.Context) {
+  var par Person
+  c.BindJSON(&par)
+  fmt.Println(par.Name) 
+  if err := db.Where("name = ? AND password = ?",par.Name, par.Password).First(&par).Error; err!=nil {
+    c.AbortWithStatus(404)
+      fmt.Println(err)
+  }  else {
+    c.Header("access-control-allow-origin", "*") // Why am I doing this? Find out. Try running with this line commented
+    c.JSON(200, par)
+ }
+  
+  
+}
 
 
 func GetPerson(c *gin.Context) {
@@ -124,7 +153,6 @@ func GetPeople(c *gin.Context) {
     }
  }
 
-
 func GetQuestions(c *gin.Context) {
     var quiz []Quiz
     if err := db.Find(&quiz).Error; err != nil {
@@ -135,3 +163,16 @@ func GetQuestions(c *gin.Context) {
        c.JSON(200, quiz)
     }
  }
+
+
+
+ func GetGenres(c *gin.Context) {
+  var genre []QuizGenre
+  if err := db.Find(&genre).Error; err != nil {
+     c.AbortWithStatus(404)
+     fmt.Println(err)
+  } else {
+     c.Header("access-control-allow-origin", "*") // Why am I doing this? Find out. Try running with this line commented
+     c.JSON(200, genre)
+  }
+}

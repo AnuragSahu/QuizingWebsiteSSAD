@@ -28,9 +28,7 @@ class ViewPeople extends Component {
           <thead>
             <tr>
               <th>ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>City</th>
+              <th>Name</th>
             </tr>
           </thead>
           <tbody>{this.state.data.map(function(item, key) {
@@ -38,8 +36,6 @@ class ViewPeople extends Component {
                   <tr key = {key}>
                       <td>{item.id}</td>
                       <td>{item.firstname}</td>
-                      <td>{item.lastname}</td>
-                      <td>{item.city}</td>
                   </tr>
                 )
              })}

@@ -6,15 +6,13 @@ class NewPerson extends Component {
     super();
     this.state = {
       formData: {
-        firstName: "",
-        lastName: "",
-        city: "",
+        name: "",
+        password: "",
       },
       submitted: false,
     }
     this.handleFChange = this.handleFChange.bind(this);
     this.handleLChange = this.handleLChange.bind(this);
-    this.handleCChange = this.handleCChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -34,12 +32,8 @@ class NewPerson extends Component {
     this.state.formData.firstName = event.target.value;
   }
   handleLChange(event) {
-    this.state.formData.lastName = event.target.value;
+    this.state.formData.password = event.target.value;
   }
-  handleCChange(event) {
-    this.state.formData.city = event.target.value;
-  }
-
   render() {
 
     return (
@@ -58,11 +52,7 @@ class NewPerson extends Component {
                 <label>Last Name</label>
                 <input type="text" className="form-control" value={this.state.lastName} onChange={this.handleLChange}/>
             </div>
-            <div className="form-group">
-                <label>City</label>
-                <input type="text" className="form-control" value={this.state.city} onChange={this.handleCChange}/>
-            </div>
-                <button type="submit" className="btn btn-default">Submit</button>
+            <button type="submit" className="btn btn-default">Submit</button>
           </form>
         </div>
 

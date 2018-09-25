@@ -18,7 +18,6 @@ class ShowQuizPolitics1 extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.Retake = this.Retake.bind(this);
     this.ReturnToHome = this.ReturnToHome.bind(this);
-    
   }
 
   Retake(event){
@@ -38,7 +37,7 @@ class ShowQuizPolitics1 extends Component {
       .then( response=>response.json())
         .then(data => this.setState({data : data}));
       //  console.log(this.state.data);
-}
+  }
 
   // Lifecycle hook, runs after component has mounted onto the DOM structure
   componentDidMount() {
@@ -60,7 +59,7 @@ class ShowQuizPolitics1 extends Component {
        }
    }
    return val;
- }
+  }
 
  handleChange(event){
   this.setState({
@@ -70,6 +69,7 @@ class ShowQuizPolitics1 extends Component {
       this.score +=1;
    this.questionid+=1;
   }
+
   render() {
     return (
       <center>
@@ -114,7 +114,7 @@ class ShowQuizPolitics1 extends Component {
                         /> {this.state.data.option4} </h4></tr>
               </div>
             }
-            {(this.state.data.genre!='Politics1') &&
+            {(this.state.data.genre!=='Politics1') && (this.updateScoreBoard) &&
             <div>
               <center>
               <br></br><h2> Finished the Quiz <br></br> Your Final Score is = {this.score}</h2>

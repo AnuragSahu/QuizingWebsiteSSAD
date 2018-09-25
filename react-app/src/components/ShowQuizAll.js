@@ -19,11 +19,6 @@ class ShowQuizAll extends Component {
         .then(data => this.setState({data: data}));
   }
 
-  checkAnswer()
-  {
-    this.state.score = 1;
-  }
-
   render() {
     return (
       <right>
@@ -48,10 +43,10 @@ class ShowQuizAll extends Component {
             return (      
               <tr key = {key}>
               
-                {(item.genre=='Politics1') && <td><h4>Quiz 1 : Politics</h4></td>}
-                {(item.genre=='Politics2') && <td><h4>Quiz 2 : Politics</h4></td>}
-                {(item.genre=='Statistics1') && <td><h4>Quiz 1 : Statistics</h4></td>}
-                {(item.genre=='Statistics2') && <td><h4>Quiz 2 : Statistics</h4></td>}
+                {(item.genre==='Politics1') && <td><h4>Quiz 1 : Politics</h4></td>}
+                {(item.genre==='Politics2') && <td><h4>Quiz 2 : Politics</h4></td>}
+                {(item.genre==='Statistics1') && <td><h4>Quiz 1 : Statistics</h4></td>}
+                {(item.genre==='Statistics2') && <td><h4>Quiz 2 : Statistics</h4></td>}
                 <td><h4>{item.questionid}</h4></td>
                 <td><h4>{item.question}</h4></td>
                 <td><h5><input type="radio" name={item.questionid} value = {1} /> {item.option1}</h5> </td>
@@ -66,7 +61,7 @@ class ShowQuizAll extends Component {
           </tbody>
           </table>
       </div>
-      {this.state.score ==1 && <h1> Yes </h1>}
+      {this.state.score ===1 && <h1> Yes </h1>}
       </right>
     );
   }

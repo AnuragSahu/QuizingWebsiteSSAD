@@ -1,59 +1,134 @@
 import React, { Component } from 'react';
 import './ShowQuiz.css';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import QuizGenreSelect from './QuizGenreSelect';
 
-class ShowQuizStatics1 extends Component {
+class ShowQuizPolitics1 extends Component {
   constructor() {
     super();
+    console.log("constructor called");
     this.state = {
       data: [],
-      score: 0,
+      checked: null,
     }
-    this.checkAnswer = this.checkAnswer.bind(this);
+    this.questionid = 1;  
+    this.score = 0;
+    this.fetchedFirst = 0;
+    this.answered = "-1";
+    this.handleChange = this.handleChange.bind(this);
+    this.Retake = this.Retake.bind(this);
+    this.ReturnToHome = this.ReturnToHome.bind(this);
   }
 
-   // Lifecycle hook, runs after component has mounted onto the DOM structure
-   componentDidMount() {
-    const request = new Request('http://127.0.0.1:8080/allquestions/');
-    fetch(request)
-      .then(response => response.json())
-        .then(data => this.setState({data: data}));
+  Retake(event){
+    window.location.reload();
   }
 
-  checkAnswer()
-  {
-    this.state.score = 1;
+  ReturnToHome(event){
+    <Route exact path='/QuizGenreSelect' component={QuizGenreSelect}/>
+  }
+
+  componentWillUpdate(){
+  //this.questionid+=1;
+  //console.log('compoenetWillUpdate');
+  //console.log(this.state.data);
+  const request = new Request('http://127.0.0.1:8080/question/'+this.questionid);
+    fetch(request,{method:'GET',})
+      .then( response=>response.json())
+        .then(data => this.setState({data : data}));
+      //  console.log(this.state.data);
+  }
+
+  // Lifecycle hook, runs after component has mounted onto the DOM structure
+  componentDidMount() {
+    console.log('component did mount');
+    const request = new Request('http://127.0.0.1:8080/question/'+this.questionid);
+    fetch(request,{method:'GET',})
+      .then( response=>response.json())
+        .then(data => this.setState({data : data}));
+       // console.log(this.state.data);
+  }
+
+  getRadioVal(form,name){
+    var val;
+   var radios = form.elements[name];
+   for (var i=0, len=radios.length; i<len; i++) {
+       if ( radios[i].checked ) { 
+           val = radios[i].value; 
+           break;
+       }
+   }
+   return val;
+  }
+
+ handleChange(event){
+  this.setState({
+     checked: event.target.value
+   });
+   if(this.state.data.correctoption === event.target.value)
+      this.score +=1;
+   this.questionid+=1;
   }
 
   render() {
     return (
-      <right>
+      <center>
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Quiz Sample</h1>
+          <h1 className="App-title">Politics Quiz 1 Sample</h1>
         </header>
-          <tbody>{this.state.data.map(function(item, key) {
-               return (
-                 <center>
-                  <tr key = {key}>
-                  {(item.genre=='Statistics') &&
-                  <div>
-                      <h2>{item.question}</h2>
-                      <tr><h4><input type="radio" name={item.questionid} value = {1} /> {item.option1}</h4> </tr>
-                      <tr><h4><input type="radio" name={item.questionid} value = {2} /> {item.option2}</h4></tr>
-                      <tr><h4><input type="radio" name={item.questionid} value = {3}/> {item.option3}</h4></tr>
-                      <tr><h4><input type="radio" name={item.questionid} value = {4}/> {item.option4}</h4></tr>
-                      </div>}
-                  </tr>
-                  </center>
-                )
-             })}
-             
+          <tbody>
+            <form  id="Chk">
+            <center>
+            <tr>
+            {(this.state.data.genre=='Statistics1') &&
+            <div>
+              <h2>{this.state.data.question}</h2>
+              <tr><h4><input 
+                        type="radio" 
+                        name={this.questionid} 
+                        value = "1"
+                        checked = {false}
+                        onChange = {this.handleChange}
+                      /> {this.state.data.option1}  </h4></tr>
+              <tr><h4><input 
+                        type="radio" 
+                        name={this.questionid} 
+                        value = "2"
+                        checked = {false}
+                        onChange = {this.handleChange}
+                        /> {this.state.data.option2} </h4></tr>
+              <tr><h4><input 
+                        type="radio" 
+                        name={this.questionid} 
+                        value = "3"
+                        checked = {false}
+                        onChange = {this.handleChange}
+                        /> {this.state.data.option3} </h4></tr>
+              <tr><h4><input 
+                        type="radio" 
+                        name={this.questionid} 
+                        value = "4"
+                        checked = {false}
+                        onChange = {this.handleChange}
+                        /> {this.state.data.option4} </h4></tr>
+              </div>
+            }
+            {(this.state.data.genre!=='Politics1') && (this.updateScoreBoard) &&
+            <div>
+              <center>
+              <br></br><h2> Finished the Quiz <br></br> Your Final Score is = {this.score}</h2>
+              </center>
+            </div>
+            }
+            </tr>
+            </center>
+            </form>
           </tbody>
       </div>
-      {this.state.score ==1 && <h1> Yes </h1>}
-      </right>
+      </center>
     );
   }
 }
 
-export default ShowQuizStatics1;
+export default ShowQuizPolitics1;

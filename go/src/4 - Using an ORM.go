@@ -30,14 +30,27 @@ type Attempt struct {
   PersonId string `json:"personid"`
 }
 
+type QuizGenre struct{
+  ID uint `json:"id"`
+  Name string `json:"name_of_genre"`
+}
+
+type QuizsInGenre struct
+{
+  ID uint `json:"id"`
+  GenreName string `json:"genrename"`
+  QuizNo string `json:"quizno"`
+}
 
 
 
 func main() {
    db, _ := gorm.Open("sqlite3", "./gorm.db")             // Creates an SQLite database, stores it in the file.
    defer db.Close()                                       // defer basically tells it to execute at the end of the main function's scope
-   db.AutoMigrate(&Person{},&Quiz{},&Attempt{})                              // Creates database based on the Person structure as schema
-   q1 := Quiz{Genre: "Politics1",Question: "Minimum age required to contest for Loksabha election?",Option1: "35 Years", Option2: "28 Years", Option3: "30 Years", Option4: "25 Years", CorrectAnswer: "4"}
+   db.AutoMigrate(&Person{},&Quiz{},&Attempt{},&QuizGenre{},&QuizsInGenre{})                              // Creates database based on the Person structure as schema
+   g1 := QuizGenre{Name: "Politics"}
+   g2 := QuizGenre{Name: "Statistics"}
+   /*q1 := Quiz{Genre: "Politics1",Question: "Minimum age required to contest for Loksabha election?",Option1: "35 Years", Option2: "28 Years", Option3: "30 Years", Option4: "25 Years", CorrectAnswer: "4"}
    q2 := Quiz{Genre: "Politics1",Question: "When and where was the first EVM (Electronic Voting Machine) used?",Option1: "1982, Kerala", Option2: "1981, karnataka", Option3: "1998, Maharastra", Option4: "2000, West Benga", CorrectAnswer: "1"}
    q3 := Quiz{Genre: "Politics1",Question: "Nagar Palika Bill was first introduced in Parliament during the Prime Ministership of",Option1: "Lal Bahadur Shastri", Option2: "Rajiv Gandhi", Option3: "Indira Gandhi", Option4: "V P Singh", CorrectAnswer: "2"}
    q4 := Quiz{Genre: "Politics1",Question: "Who is the first Predent of Indian National Congress?",Option1: "M K Gandhi", Option2: "W C Bonnerjee", Option3: "Dadabhai Naoroji", Option4: "George Yule", CorrectAnswer: "2"}
@@ -49,7 +62,7 @@ func main() {
    q10 := Quiz{Genre: "Statistics1",Question: "Which of the following random variables are the default model for random samples ?",Option1: "iid", Option2: "id", Option3: "pmd", Option4: "All the above", CorrectAnswer: "1"}
    p1 := Person{FirstName: "John", LastName: "Doe"}
    // p2 := Person{FirstName: "Jane", LastName: "Smith"}     // Example Person objects being created
-   db.Create(&p1)                                         // Creates an entry in the db with the object p1
+   //db.Create(&p1)                                         // Creates an entry in the db with the object p1
    db.Create(&q1)
    db.Create(&q2)
    db.Create(&q3)
@@ -59,8 +72,10 @@ func main() {
    db.Create(&q7)
    db.Create(&q8)
    db.Create(&q9)
-   db.Create(&q10)
-   var p3 Person                                          // identify a Person type for us to store the results in
+   db.Create(&q10)*/
+   db.Create(&g1)
+   db.Create(&g2)
+   /*var p3 Person                                          // identify a Person type for us to store the results in
    var qq1 Quiz
    db.First(&qq1)
    db.First(&p3)                                          // Find the first record in the Database and store it in p3
@@ -68,5 +83,8 @@ func main() {
    fmt.Println(p3.FirstName)
    //fmt.Println(qq1.Genre)
    //fmt.Println(qq1.Question)
-   fmt.Println(p3.LastName)                               // print out our record from the database
+   fmt.Println(p3.LastName)*/                               // print out our record from the database
+   var g3 QuizGenre
+   db.First(&g3)
+   fmt.Println(g3.Name)
 }

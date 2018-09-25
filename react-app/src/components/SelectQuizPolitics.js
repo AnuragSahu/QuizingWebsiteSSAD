@@ -10,9 +10,9 @@ class SelectQuizPolitics extends Component {
         <header className="App-header">
           <h1 className="App-title">Select a Quiz</h1>
         </header>
-
-        <button><Link to={'/ShowQuizPolitics1'}>Quiz1</Link></button>
-        <button><Link to={'/ShowQuizPolitics2'}>Quiz2</Link></button>
+        <br></br><br></br>
+        <button  className="btn btn-default"><Link to={'/ShowQuizPolitics1'}>Quiz1</Link></button> &nbsp;
+        <button className="btn btn-default"><Link to={'/ShowQuizPolitics2'}>Quiz2</Link></button>
       </div>
     );
   }
