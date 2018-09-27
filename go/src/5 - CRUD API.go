@@ -64,8 +64,11 @@ func main() {
    r.GET("/people/:id", GetPerson)
    r.POST("/userpresent/",UserPresent)
    r.POST("/putpeople/", CreatePerson)
+   r.POST("/putscore/", CreateScore)
+   r.POST("/putquestion/", CreateQuestion)
    r.PUT("/people/:id", UpdatePerson)
    r.DELETE("/people/:id", DeletePerson)
+   r.DELETE("/question/:id", DeleteQuestion)
    r.Use((cors.Default()))
    r.Run(":8080")                                           // Run on port 8080
 }
@@ -79,6 +82,16 @@ func DeletePerson(c *gin.Context) {
    c.Header("access-control-allow-origin", "*")
    c.JSON(200, gin.H{"id #" + id: "deleted"})
 }
+
+func DeleteQuestion(c *gin.Context) {
+  id := c.Params.ByName("id")
+  var person Quiz
+  d := db.Where("id = ?", id).Delete(&person)
+  fmt.Println(d)
+  c.Header("access-control-allow-origin", "*")
+  c.JSON(200, gin.H{"id #" + id: "deleted"})
+}
+
 
 func UpdatePerson(c *gin.Context) {
    var person Person
@@ -102,6 +115,28 @@ func CreatePerson(c *gin.Context) {
    c.JSON(200, person)
 }
 
+
+func CreateScore(c *gin.Context) {
+  fmt.Println("Hello")
+  /*var person Attempt
+  c.BindJSON(&person)
+  fmt.Println(person.score)
+  db.Create(&person)
+  c.Header("access-control-allow-origin", "*") // Why am I doing this? Find out. Try running with this line commented
+  c.JSON(200, person)*/
+}
+
+
+func CreateQuestion(c *gin.Context) {
+  var quiz Quiz
+  c.BindJSON(&quiz)
+  fmt.Println(quiz.Question)
+  db.Create(&quiz)
+  c.Header("access-control-allow-origin", "*") // Why am I doing this? Find out. Try running with this line commented
+  c.JSON(200, quiz)
+}
+
+
 func UserPresent(c *gin.Context) {
   var par Person
   c.BindJSON(&par)
@@ -112,11 +147,8 @@ func UserPresent(c *gin.Context) {
   }  else {
     c.Header("access-control-allow-origin", "*") // Why am I doing this? Find out. Try running with this line commented
     c.JSON(200, par)
- }
-  
-  
+ }  
 }
-
 
 func GetPerson(c *gin.Context) {
    id := c.Params.ByName("id")

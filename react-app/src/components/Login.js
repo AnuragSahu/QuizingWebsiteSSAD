@@ -18,6 +18,7 @@ constructor(){
   }
   this.loggedIn = 0;
   this.handleClick = this.handleClick.bind(this);
+  this.handle1Click = this.handle1Click.bind(this);
  }
 
  handleClick(event)
@@ -47,6 +48,15 @@ constructor(){
     console.log(error);
     });
  }
+
+ handle1Click(event)
+ {
+   this.setState({
+     logIn : true
+   })
+   
+ }
+ 
 render() {
     return (
       <div>
@@ -69,6 +79,9 @@ render() {
                />
              <br/>
              <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+             <br/> 
+             <RaisedButton label="Register" primary={true} style={style} onClick={(event) => this.handle1Click(event)}/>
+
          </div>
          </MuiThemeProvider>
          {(this.state.logIn) &&

@@ -11,14 +11,13 @@ class AdminPanel extends Component {
           <h1 className="App-title">Select a Quiz</h1>
         </header>
         <table>
-        <tr><Link to={'/NewPerson'}>Add Person</Link></tr>
-        <tr><Link to={'/ShowQuizAll'}>ViewQuizes</Link></tr>
-        <tr><Link to={'/ViewPeople'}>View All People</Link></tr>
-        <tr><Link to={'/MyComponent'}>MyComponent</Link></tr>
-        <tr><Link to={'/ShowQuizPolitics1'}>Add Person</Link></tr>
-        <tr><Link to={'/ShowQuizPolitics1'}>Add Person</Link></tr>
-        <tr><Link to={'/ShowQuizPolitics1'}>Add Person</Link></tr>
-        <tr></tr><button><Link to={'/ShowQuizPolitics2'}>Quiz2</Link></button>
+        <tr><Link to={'/NewPerson'}>  <h3>Add Person</h3></Link></tr>
+        <tr><Link to={'/ShowQuizAll'}><h3>ViewQuizes</h3></Link></tr>
+        <tr><Link to={'/ViewPeople'}><h3>View All People</h3></Link></tr>
+        <tr><Link to={'/MyComponent'}><h3>MyComponent</h3></Link></tr>
+        <tr><Link to={'/NewQuestion'}><h3>Add Question</h3></Link></tr>
+        <tr><Link to={'/DeleteQuiz'}><h3>Delete Questions</h3></Link></tr>
+        <tr><Link to={'/EditQuestions'}><h3>EditQuestions</h3></Link></tr>
         </table>
       </div>
     );

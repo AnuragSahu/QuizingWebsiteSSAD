@@ -8,7 +8,6 @@ class ShowQuizAll extends Component {
       data: [],
       score: 0,
     }
-    this.checkAnswer = this.checkAnswer.bind(this);
   }
 
    // Lifecycle hook, runs after component has mounted onto the DOM structure

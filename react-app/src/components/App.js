@@ -10,10 +10,14 @@ import QuizGenreSelect from './QuizGenreSelect';
 import MyComponent from './MyComponent';
 import SelectQuizPolitics from './SelectQuizPolitics';
 import ShowQuizPolitics1 from './ShowQuizPolitics1';
+import ShowQuizPolitics11 from './ShowQuizPolitics11';
 import ShowQuizPolitics2 from './ShowQuizPolitics2';
 import ShowQuizStatics1 from './ShowQuizStatics1';
 import Login from './Login';
 import Register from './Register';
+import NewQuestion from './NewQuestion';
+import DeleteQuiz from './DeleteQuiz';
+import EditQuestions from './EditQuestions';
 
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
@@ -32,7 +36,6 @@ class App extends Component {
                 <ul className="nav navbar-nav">
                   <li><Link to={'/'}>Home</Link></li>
                   <li><Link to={'/AdminPanel'}>AdminPanel</Link></li>
-                  <li><Link to={'/Register'}>SignUp</Link></li>
                   <li><Link to={'/QuizGenreSelect'}>NormalUser</Link></li>
                   <li><Link to={'/Login'}>Login</Link></li>
                 </ul>
@@ -50,11 +53,15 @@ class App extends Component {
                  <Route exact path='/SelectQuizPolitics' component={SelectQuizPolitics}/>
                  <Route exact path='/ShowQuiz/:quizNo' component={ShowQuizPolitics1}/>
                  <Route exact path='/ShowQuizPolitics1' component={ShowQuizPolitics1}/>
+                 <Route exact path='/ShowQuizPolitics11' component={ShowQuizPolitics11}/>
                  <Route exact path='/ShowQuizPolitics2' component={ShowQuizPolitics2}/>
                  <Route exact path='/ShowQuizStatics1' component={ShowQuizStatics1}/>
                  <Route exact path='/MyComponent' component={MyComponent}/>
                  <Route exact path='/Login' component={Login}/>
                  <Route exact path='/Register' component={Register}/>
+                 <Route exact path='/NewQuestion' component={NewQuestion}/>
+                 <Route exact path='/DeleteQuiz' component={DeleteQuiz}/>
+                 <Route exact path='/EditQuestions' component={EditQuestions}/>
             </Switch>
           </div>
         </Router>

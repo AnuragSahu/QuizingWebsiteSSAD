@@ -5,7 +5,7 @@
 .App-header {
   background-color: #222;
   height: 70px;
-  padding: 5px;
+  padding: 1px;
   color: white;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .formContainer {
-  padding-left: 500px;
-  padding-right: 500px;
+  padding-left: 100px;
+  padding-right: 100px;
 
 }

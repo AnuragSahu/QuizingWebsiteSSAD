@@ -35,7 +35,7 @@ class ViewPeople extends Component {
                return (
                   <tr key = {key}>
                       <td>{item.id}</td>
-                      <td>{item.firstname}</td>
+                      <td>{item.name}</td>
                   </tr>
                 )
              })}

@@ -11,13 +11,14 @@ class ShowQuizPolitics1 extends Component {
       data: [],
       checked: null,
     }
-    this.questionid = 1;  
+    this.questionid = 6;  
     this.score = 0;
     this.fetchedFirst = 0;
     this.answered = "-1";
     this.handleChange = this.handleChange.bind(this);
     this.Retake = this.Retake.bind(this);
     this.ReturnToHome = this.ReturnToHome.bind(this);
+    this.notRendered = this.notRendered.bind(this);
   }
 
   Retake(event){
@@ -34,8 +35,16 @@ class ShowQuizPolitics1 extends Component {
   //console.log(this.state.data);
   const request = new Request('http://127.0.0.1:8080/question/'+this.questionid);
     fetch(request,{method:'GET',})
-      .then( response=>response.json())
-        .then(data => this.setState({data : data}));
+     .then(response => {
+       if(response.status >=200 && response.status <300 )
+        return response.json()
+     })
+      //.then( response=>response.json())
+        .then(data => this.setState({data : data}))
+        .catch(function (error){
+          console.log("Unable to fetch");
+          this.questionid +=1;
+        });
       //  console.log(this.state.data);
   }
 
@@ -70,6 +79,12 @@ class ShowQuizPolitics1 extends Component {
    this.questionid+=1;
   }
 
+  notRendered(event)
+  {
+    this.questionid+=1;
+    return false;
+  }
+
   render() {
     return (
       <center>
@@ -81,7 +96,7 @@ class ShowQuizPolitics1 extends Component {
             <form  id="Chk">
             <center>
             <tr>
-            {(this.state.data.genre=='Politics1') &&
+            {(this.state.data.genre==='Politics1') &&
             <div>
               <h2>{this.state.data.question}</h2>
               <tr><h4><input 
@@ -114,7 +129,7 @@ class ShowQuizPolitics1 extends Component {
                         /> {this.state.data.option4} </h4></tr>
               </div>
             }
-            {(this.state.data.genre!=='Politics1') && (this.updateScoreBoard) &&
+            {(this.state.data.genre!=='Politics1') && (this.notRendered) &&
             <div>
               <center>
               <br></br><h2> Finished the Quiz <br></br> Your Final Score is = {this.score}</h2>
